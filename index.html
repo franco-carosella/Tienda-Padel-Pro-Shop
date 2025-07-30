@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PadelProShop - Tu tienda de pádel</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+
+    <!-- Animate Css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header Responsive con Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+      <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand" href="index.html">
+          <img src=/images/logo/logo-principal.jpg alt="PadelProShop Logo"
+          id="logo-principal" />
+        </a>
+
+        <!-- Botón hamburguesa para móviles -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú de navegación -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./pages/productos.html">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/sobre-nosotros.html"
+                >Sobre Nosotros</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/contacto.html">Contacto</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/servicios.html">Servicios</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/carrito.html">🛒 Carrito</a>
+            </li>
+          </ul>
+
+          <!-- Botones de autenticación -->
+          <div class="auth-buttons">
+            <a href="#" class="auth-btn login-btn">Iniciar Sesión</a>
+            <a href="#" class="auth-btn register-btn">Registrarse</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Espaciado para compensar el navbar fixed -->
+    <div style="height: 100px"></div>
+
+    <!-- 1. CAROUSEL DE OFERTAS ESPECIALES -->
+    <div
+      id="carouselOfertas"
+      class="carousel slide mb-5 animate__animated animate__fadeIn"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselOfertas"
+          data-bs-slide-to="0"
+          class="active"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselOfertas"
+          data-bs-slide-to="1"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselOfertas"
+          data-bs-slide-to="2"
+        ></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            src="../images/images-carrousel/Palas-Carrousel.jpg"
+            class="d-block w-100"
+            alt="Palas de Pádel Premium"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>🏆 Ofertas en Palas Premium</h5>
+            <p>Hasta 30% de descuento en palas Bullpadel y Head</p>
+            <span class="badge badge-oferta">¡OFERTA LIMITADA!</span>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img
+            src="../images/images-carrousel/zapatillas-carrousel.jpeg"
+            class="d-block w-100"
+            alt="Zapatillas Deportivas"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>👟 Nueva Colección de Zapatillas</h5>
+            <p>Las mejores marcas para tu rendimiento en cancha</p>
+            <span class="badge badge-oferta">¡NUEVO!</span>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img
+            src="../images/images-carrousel/accesorios-carrousel.jpeg"
+            class="d-block w-100"
+            alt="Accesorios Profesionales"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>🎾 Accesorios Profesionales</h5>
+            <p>Todo lo que necesitas para elevar tu juego</p>
+            <span class="badge badge-oferta">¡MEJOR PRECIO!</span>
+          </div>
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselOfertas"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselOfertas"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+
+    <!-- Intro Content -->
+    <section class="intro">
+      <div class="intro-content animate__animated animate__slideInUp">
+        <h1 class="intro-titulo">Bienvenido a PadelPROShop</h1>
+        <p class="Desc-titulo">
+          La tienda numero 1 en Villa Carlos Paz. Donde encontraras los mejores
+          productos oficiales de padel.
+        </p>
+      </div>
+    </section>
+
+    <!-- Características -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-titulo">¿Por qué elegir PadelPROShop?</h2>
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon"></div>
+            <h3>Calidad Premium 🏆</h3>
+            <p>
+              Trabajamos con las mejores marcas del mercado para ofrecerte
+              productos de máxima calidad.
+            </p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon"></div>
+            <h3>Envío Rápido 🏆</h3>
+            <p>
+              Entregamos tu pedido en 48-72 horas habiles. Para que puedas jugar
+              lo antes posible.
+            </p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon"></div>
+            <h3>Mejores Precios 🏆</h3>
+            <p>
+              Ofrecemos los precios más competitivos del mercado y excelentes
+              cuotas sin comprometer la calidad.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PRODUCTOS DESTACADOS CON CARDS DE BOOTSTRAP -->
+    <section class="section productos-destacados">
+      <div class="container">
+        <h2 class="section-destacados">Productos Destacados</h2>
+        <div
+          class="row g-4 animate__animated animate__zoomIn"
+          style="animation-delay: 0.5s"
+        >
+          <div class="col-md-4">
+            <div class="card h-100">
+              <img
+                src="/images/productos/vertex-03.jpg"
+                class="card-img-top"
+                alt="vertex-03"
+                style="height: 250px; object-fit: cover"
+              />
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Pala Bullpadel Vertex 03</h5>
+                <p class="card-text">
+                  Pala de alto rendimiento para jugadores avanzados. Control y
+                  potencia perfectamente equilibrados.
+                </p>
+                <div class="mt-auto">
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-3"
+                  >
+                    <span class="h4 text-primary mb-0">$129,999.99</span>
+                    <span class="badge bg-success">★★★★★</span>
+                  </div>
+                  <button class="btn btn-primary w-100">
+                    Añadir al carrito
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100">
+              <img
+                src="/images/productos/asics-gel.webp"
+                class="card-img-top"
+                alt="zapatillas-asics"
+                style="height: 250px; object-fit: cover"
+              />
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Zapatillas Asics Gel-Padel</h5>
+                <p class="card-text">
+                  Zapatillas específicas para pádel con tecnología Gel para
+                  máximo confort y estabilidad.
+                </p>
+                <div class="mt-auto">
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-3"
+                  >
+                    <span class="h4 text-primary mb-0">$89,999.99</span>
+                    <span class="badge bg-success">★★★★☆</span>
+                  </div>
+                  <button class="btn btn-primary w-100">
+                    Añadir al carrito
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card h-100">
+              <img
+                src="/images/productos/pelotas-head.webp"
+                class="card-img-top"
+                alt="pelotas-head"
+                style="height: 250px; object-fit: cover"
+              />
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Pelotas Head Padel Pro</h5>
+                <p class="card-text">
+                  Pack de 3 pelotas oficiales para competición. Durabilidad y
+                  rebote profesional.
+                </p>
+                <div class="mt-auto">
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-3"
+                  >
+                    <span class="h4 text-primary mb-0">$12,999.99</span>
+                    <span class="badge bg-success">★★★★★</span>
+                  </div>
+                  <button class="btn btn-primary w-100">
+                    Añadir al carrito
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ACCORDION CON INFORMACIÓN ÚTIL -->
+    <section class="section py-5">
+      <div class="container">
+        <h2 class="section-titulo text-center mb-5">Información Útil</h2>
+        <div class="accordion" id="accordionInfo">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+              >
+                🚚 ¿Cómo funciona el envío?
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              class="accordion-collapse collapse show"
+              data-bs-parent="#accordionInfo"
+            >
+              <div class="accordion-body">
+                <strong>Envíos rápidos y seguros.</strong> Realizamos entregas
+                en 48-72 horas hábiles en toda Villa Carlos Paz y alrededores.
+                Para compras superiores a $50,000 el envío es completamente
+                gratuito. Trabajamos con las mejores empresas de logística para
+                garantizar que tu pedido llegue en perfectas condiciones.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+              >
+                💳 ¿Qué métodos de pago aceptan?
+              </button>
+            </h2>
+            <div
+              id="collapseTwo"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionInfo"
+            >
+              <div class="accordion-body">
+                Aceptamos múltiples formas de pago: tarjetas de crédito y débito
+                (Visa, Mastercard, American Express), transferencias bancarias,
+                MercadoPago, y efectivo en nuestro local. También ofrecemos
+                planes de financiación en 3, 6 y 12 cuotas sin interés con
+                tarjetas seleccionadas.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+              >
+                🔄 ¿Cuál es la política de cambios y devoluciones?
+              </button>
+            </h2>
+            <div
+              id="collapseThree"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionInfo"
+            >
+              <div class="accordion-body">
+                <strong>Tu satisfacción es nuestra prioridad.</strong> Ofrecemos
+                30 días para cambios y devoluciones desde la fecha de compra.
+                Los productos deben estar en su empaque original y sin uso. Para
+                palas de pádel, realizamos un control de calidad antes de
+                cualquier cambio. Los gastos de envío para devoluciones corren
+                por cuenta del cliente, excepto en casos de productos
+                defectuosos.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFour"
+              >
+                🏆 ¿Ofrecen garantía en los productos?
+              </button>
+            </h2>
+            <div
+              id="collapseFour"
+              class="accordion-collapse collapse"
+              data-bs-parent="#accordionInfo"
+            >
+              <div class="accordion-body">
+                Todos nuestros productos cuentan con garantía oficial del
+                fabricante. Las palas tienen garantía de 6 meses contra defectos
+                de fabricación, las zapatillas 3 meses, y los accesorios según
+                especificaciones del fabricante. Somos distribuidores oficiales,
+                por lo que tu garantía está completamente respaldada.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 PadelPROShop. Todos los derechos reservados.</p>
+        <p>📧PadelPROShop@hotmail.com | 📞 +54 11 3541-223735</p>
+        <a href="/pages/sobre-nosotros.html">Acerca de nosotros</a>
+      </div>
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
