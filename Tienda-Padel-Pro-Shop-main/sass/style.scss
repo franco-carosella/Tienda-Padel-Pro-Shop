@@ -1,0 +1,532 @@
+@charset "UTF-8";
+
+// Variables
+$primary-color: #0f4f7bfc;
+$primary-dark: #013f71ed;
+$secondary-color: #1a5a8a;
+$accent-color: #8faee9fc;
+$light-blue: #c4dafa;
+$lighter-blue: #a8c8f5;
+$white: #ffffff;
+$light-gray: #fafafa;
+$gray: #f8f9fa;
+$dark-gray: #e9ecef;
+$text-dark: #000000e0;
+$text-gray: #333;
+$text-light: #666;
+$button-blue: #007bff;
+$button-blue-hover: #0056b3;
+$auth-gradient: linear-gradient(135deg, #163adf 0%, #764ba2 100%);
+
+// Mixins
+
+@mixin gradient-light {
+  background: linear-gradient(135deg, $gray 0%, $dark-gray 100%);
+}
+
+@mixin gradient-section {
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+}
+
+@mixin transition($property: all, $duration: 0.3s, $easing: ease) {
+  transition: $property $duration $easing;
+}
+
+@mixin box-shadow($shadow: 0 5px 15px rgba(0, 0, 0, 0.1)) {
+  box-shadow: $shadow;
+}
+
+@mixin hover-lift {
+  &:hover {
+    transform: translateY(-5px);
+    @include box-shadow(0 10px 25px rgba(0, 0, 0, 0.15));
+  }
+}
+
+// Base styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $light-gray;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: $text-dark;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// Header
+header {
+  background-color: $accent-color;
+  @include box-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.logo {
+  flex-shrink: 0;
+}
+
+#logo-principal {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+nav {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.secciones {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  a {
+    color: #fffffff0;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    @include transition(all);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Auth buttons
+
+.auth-buttons {
+  display: flex;
+  gap: 2rem;
+  margin-left: 6rem;
+}
+
+.auth-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  @include transition();
+  cursor: pointer;
+}
+
+.login-btn,
+.register-btn {
+  background: $auth-gradient;
+  color: $white;
+  border: 1px solid transparent;
+}
+
+// Intro section
+.intro {
+  @include gradient-primary;
+  color: $white;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.intro-titulo {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-style: italic;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+}
+
+.Desc-titulo {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  max-width: 600px;
+  opacity: 0.9;
+}
+
+// Sobre Nosotros section
+.sobre-nosotros {
+  @include gradient-primary;
+  color: $white;
+  padding: 4rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30vh;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 1.5rem;
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    color: $white;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+  }
+
+  p {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.4;
+    max-width: 600px;
+  }
+}
+
+// General sections
+.section {
+  padding: 4rem 0;
+}
+
+.section-titulo,
+.section-title,
+.section-destacados {
+  @include gradient-section;
+  color: $white;
+  font-style: italic;
+  font-family: ui-monospace;
+  font-weight: bold;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  text-align: center;
+  padding: 1rem 2rem;
+  margin-bottom: 3rem;
+  border-radius: 10px;
+  @include box-shadow(0 4px 15px rgba(15, 79, 123, 0.3));
+}
+
+.description-productos {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  text-align: center;
+  color: $text-light;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Features grid
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.feature {
+  background: $white;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  @include box-shadow();
+  @include transition();
+  @include hover-lift;
+
+  h3 {
+    font-family: system-ui;
+    font-style: italic;
+    background: linear-gradient(135deg, $light-blue 0%, $lighter-blue 100%);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: $text-gray;
+    line-height: 1.6;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+}
+
+// Products section
+.productos-destacados {
+  @include gradient-light;
+}
+
+.productos-grid,
+.productos-catalogo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.productos-grid {
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.producto {
+  background: $white;
+  border-radius: 15px;
+  overflow: hidden;
+  @include box-shadow();
+  @include transition();
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  animation: fadeInUp 0.6s ease forwards;
+
+  &:hover {
+    transform: translateY(-3px);
+    @include box-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
+
+    .producto-img img {
+      transform: scale(1.02);
+    }
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+}
+
+.producto-img {
+  height: 250px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $gray;
+  border-radius: 8px 8px 0 0;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.producto-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  h3 {
+    font-family: system-ui;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: $text-gray;
+    background: none;
+    padding: 0;
+  }
+
+  p {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: $text-light;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+}
+
+.precio {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: $primary-color;
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+// Cart button
+.Btn-Carrito {
+  padding: 12px 24px;
+  width: 100%;
+  max-width: 200px;
+  height: 45px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: $button-blue;
+  color: $white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  @include box-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  margin-top: auto;
+
+  &:hover {
+    background-color: $button-blue-hover;
+    transform: translateY(-2px);
+    @include box-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  }
+}
+
+// Footer
+footer {
+  @include gradient-primary;
+  color: $white;
+  padding: 3rem 0;
+  text-align: center;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  p {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+  }
+
+  a {
+    color: $light-blue;
+    text-decoration: none;
+    font-weight: 500;
+    @include transition(color);
+
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .secciones {
+    justify-content: center;
+    gap: 1rem;
+
+    a {
+      font-size: 16px;
+      padding: 0.5rem;
+    }
+  }
+
+  .intro {
+    padding: 2rem 0;
+  }
+
+  .section {
+    padding: 2rem 0;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .productos-grid,
+  .productos-catalogo {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .productos-grid,
+  .productos-catalogo {
+    grid-template-columns: 1fr;
+  }
+
+  .feature,
+  .producto {
+    margin: 0 10px;
+  }
+
+  .intro-titulo {
+    font-size: 1.8rem;
+  }
+
+  .section-titulo,
+  .section-destacados,
+  .section-title {
+    font-size: 1.3rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .producto-img {
+    height: 200px;
+  }
+}
+
+// Abstracts
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
+// Components
+@import "components/auth-buttons";
+
+// Resto de tus imports...
