@@ -1,6 +1,5 @@
 // ============================================
 // SISTEMA DE CARRITO - PADELPROSHOP
-// Segunda Entrega - JS Flex
 // ============================================
 
 // Array completo de productos disponibles en la tienda
