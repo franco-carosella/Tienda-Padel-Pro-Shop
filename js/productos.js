@@ -1,149 +1,53 @@
 // PRODUCTOS.JS - PADELPROSHOP
 
-// Array completo de productos disponibles en la tienda
-const todosLosProductos = [
-    // PALAS
-    {
-        id: 1,
-        nombre: "Pala Bullpadel Vertex 03",
-        precio: 129999.99,
-        stock: 5,
-        descripcion: "Pala de alto rendimiento para jugadores avanzados",
-        imagen: "../images/productos/vertex-03.jpg",
-        categoria: "palas"
-    },
-    {
-        id: 6,
-        nombre: "Pala Adidas Drive",
-        precio: 89999.99,
-        stock: 8,
-        descripcion: "Pala de control perfecta para jugadores intermedios",
-        imagen: "../images/productos/adidas-drive.webp",
-        categoria: "palas"
-    },
-    {
-        id: 7,
-        nombre: "Head Speed Pro",
-        precio: 149999.99,
-        stock: 6,
-        descripcion: "Pala de potencia diseñada para jugadores agresivos",
-        imagen: "../images/productos/head-speed-pro.png",
-        categoria: "palas"
-    },
-    {
-        id: 8,
-        nombre: "Wilson Carbon Force",
-        precio: 199999.99,
-        stock: 4,
-        descripcion: "Pala de fibra de carbono para rendimiento profesional",
-        imagen: "../images/productos/carbon-force.webp",
-        categoria: "palas"
-    },
-    // CALZADO
-    {
-        id: 2,
-        nombre: "Zapatillas Asics Gel-Padel",
-        precio: 89999.99,
-        stock: 8,
-        descripcion: "Zapatillas específicas para pádel con tecnología Gel",
-        imagen: "../images/productos/asics-gel-exclusive.webp",
-        categoria: "calzado"
-    },
-    {
-        id: 9,
-        nombre: "Adidas Barricade Club",
-        precio: 79999.99,
-        stock: 10,
-        descripcion: "Zapatillas de alto rendimiento para superficies de pádel",
-        imagen: "../images/productos/adidas-barricade.webp",
-        categoria: "calzado"
-    },
-    {
-        id: 10,
-        nombre: "Babolat Jet Padel",
-        precio: 94999.99,
-        stock: 7,
-        descripcion: "Zapatillas ligeras ideales para movimientos rápidos",
-        imagen: "../images/productos/babolat-jet.webp",
-        categoria: "calzado"
-    },
-    // ACCESORIOS
-    {
-        id: 3,
-        nombre: "Pelotas Head Padel Pro",
-        precio: 12999.99,
-        stock: 20,
-        descripcion: "Pack de 3 pelotas oficiales para competición",
-        imagen: "../images/productos/pelotas-head.webp",
-        categoria: "accesorios"
-    },
-    {
-        id: 11,
-        nombre: "Grip Wilson Pro",
-        precio: 8999.99,
-        stock: 25,
-        descripcion: "Grip de reemplazo antideslizante",
-        imagen: "../images/productos/grip-wilson.png",
-        categoria: "accesorios"
-    },
-    {
-        id: 12,
-        nombre: "Bolso Paletero Bullpadel",
-        precio: 45999.99,
-        stock: 8,
-        descripcion: "Paletero grande con compartimentos",
-        imagen: "../images/productos/bolso-bullpadel.webp",
-        categoria: "accesorios"
-    },
-    {
-        id: 13,
-        nombre: "Protector de Pala Universal",
-        precio: 1599.99,
-        stock: 30,
-        descripcion: "Protector transparente para tu pala",
-        imagen: "../images/productos/protector-pala.webp",
-        categoria: "accesorios"
-    },
-    {
-        id: 14,
-        nombre: "Muñequeras Deportivas Adidas",
-        precio: 9999.99,
-        stock: 15,
-        descripcion: "Par de muñequeras absorbentes",
-        imagen: "../images/productos/muñequeras-adidas.webp",
-        categoria: "accesorios"
-    },
-    {
-        id: 15,
-        nombre: "Chomba Adidas Tenis-Padel",
-        precio: 24000.99,
-        stock: 12,
-        descripcion: "Chomba transpirable con tecnología de secado rápido",
-        imagen: "../images/productos/chomba-adidas.webp",
-        categoria: "accesorios"
-    },
-    {
-        id: 4,
-        nombre: "Custom Grip Nox",
-        precio: 14999.99,
-        stock: 15,
-        descripcion: "Grip personalizado para mejor agarre",
-        imagen: "../images/productos/custom-grip-nox.jpeg",
-        categoria: "accesorios"
-    },
-    {
-        id: 5,
-        nombre: "Mochila Head Pro",
-        precio: 24999.99,
-        stock: 10,
-        descripcion: "Mochila profesional para equipamiento",
-        imagen: "../images/productos/mochila-head-pro.jpeg",
-        categoria: "accesorios"
+// Array de productos (se cargará desde JSON)
+let todosLosProductos = [];
+
+// ============================================
+// CARGA DE DATOS CON FETCH
+// ============================================
+
+// Cargar productos desde JSON
+async function cargarProductosDesdeJSON() {
+    try {
+        console.log('Cargando productos desde JSON...');
+        
+        const response = await fetch('../productos.json');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        todosLosProductos = await response.json();
+        console.log('Productos cargados:', todosLosProductos.length);
+        
+        // Después de cargar, renderizar los productos
+        renderizarTodosLosProductos();
+        
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+        mostrarNotificacion('Error al cargar productos. Intenta recargar la página.', 'error');
+        
+        // Productos de respaldo
+        todosLosProductos = [
+            {
+                id: 1,
+                nombre: "Pala Bullpadel Vertex 03",
+                precio: 129999.99,
+                stock: 5,
+                descripcion: "Pala de alto rendimiento para jugadores avanzados",
+                imagen: "../images/productos/vertex-03.jpg",
+                categoria: "palas"
+            }
+        ];
+        
+        renderizarTodosLosProductos();
     }
-];
+}
 
 // ============================================
 // FUNCIONES DE CARRITO
+// ============================================
 
 // Obtener carrito actual desde localStorage
 function obtenerCarrito() {
@@ -250,6 +154,7 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
 
 // ============================================
 // RENDERIZADO DINÁMICO DE PRODUCTOS
+// ============================================
 
 // Renderizar productos por categoría
 function renderizarProductosPorCategoria(categoria, contenedorId) {
@@ -258,6 +163,11 @@ function renderizarProductosPorCategoria(categoria, contenedorId) {
     
     const productosFiltrados = todosLosProductos.filter(p => p.categoria === categoria);
     contenedor.innerHTML = '';
+    
+    if (productosFiltrados.length === 0) {
+        contenedor.innerHTML = '<p class="text-center">Cargando productos...</p>';
+        return;
+    }
     
     productosFiltrados.forEach((producto, index) => {
         const col = document.createElement('div');
@@ -293,34 +203,31 @@ function renderizarTodosLosProductos() {
     renderizarProductosPorCategoria('calzado', 'calzadoContainer');
     renderizarProductosPorCategoria('accesorios', 'accesoriosContainer');
     
-    // Asignar eventos UNA SOLA VEZ después de renderizar TODOS los productos
+    // Asignar eventos después de renderizar
     asignarEventosBotonesAgregar();
 }
 
 // ============================================
 // ASIGNACIÓN DE EVENTOS
+// ============================================
 
 // Asignar eventos a todos los botones de agregar al carrito
-// USANDO DELEGACIÓN DE EVENTOS PARA EVITAR DUPLICADOS
 function asignarEventosBotonesAgregar() {
-    // Remover listeners anteriores si existen
     const contenedorPrincipal = document.querySelector('.tab-content');
     if (!contenedorPrincipal) return;
     
-    // Clonar el elemento para remover todos los event listeners
+    // Clonar para limpiar listeners previos
     const nuevoContenedor = contenedorPrincipal.cloneNode(true);
     contenedorPrincipal.parentNode.replaceChild(nuevoContenedor, contenedorPrincipal);
-
     
-    // Usar delegación de eventos (un solo listener en el contenedor padre)
+    // Usar delegación de eventos
     nuevoContenedor.addEventListener('click', (e) => {
-        // Verificar si el click fue en un botón de agregar al carrito
         if (e.target.classList.contains('btn-agregar-carrito')) {
             e.preventDefault();
             const idProducto = parseInt(e.target.dataset.productoId);
             agregarAlCarritoDesdeProductos(idProducto);
             
-            // Efecto visual en el botón
+            // Efecto visual
             e.target.textContent = '✓ Agregado';
             e.target.classList.add('btn-success');
             e.target.classList.remove('btn-primary');
@@ -336,13 +243,13 @@ function asignarEventosBotonesAgregar() {
 
 // ============================================
 // INICIALIZACIÓN
+// ============================================
 
 // Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    // Renderizar productos dinámicamente
-    renderizarTodosLosProductos();
+document.addEventListener('DOMContentLoaded', async () => {
+    // IMPORTANTE: Cargar productos con fetch primero
+    await cargarProductosDesdeJSON();
     
-    // Actualizar contador del carrito al cargar
+    // Actualizar contador del carrito
     actualizarContadorCarrito();
 });
-
