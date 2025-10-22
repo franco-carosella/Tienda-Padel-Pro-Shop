@@ -115,17 +115,52 @@ function agregarAlCarrito(idProducto, cantidad = 1) {
     mostrarNotificacion('Producto agregado al carrito', 'success');
 }
 
-// Eliminar producto del carrito
+// Eliminar producto del carrito CON CONFIRMACIÓN
 function eliminarDelCarrito(idProducto) {
-    const indice = carritoProductos.findIndex(producto => producto.id === idProducto);
+    const productoEnCarrito = buscarProductoEnCarrito(idProducto);
     
-    if (indice !== -1) {
-        const productoEliminado = carritoProductos[indice];
-        carritoProductos.splice(indice, 1);
-        guardarCarritoEnStorage();
-        actualizarVistaCarrito();
-        mostrarNotificacion(`${productoEliminado.nombre} eliminado del carrito`, 'info');
-    }
+    if (!productoEnCarrito) return;
+    
+    // Sweet Alert de confirmación
+    Swal.fire({
+        title: '¿Eliminar producto?',
+        html: `
+            <div style="text-align: left;">
+                <p><strong>${productoEnCarrito.nombre}</strong></p>
+                <p class="text-muted" style="font-size: 0.9rem;">Cantidad: ${productoEnCarrito.cantidad} | Subtotal: $${productoEnCarrito.subtotal.toLocaleString('es-AR', {minimumFractionDigits: 2})}</p>
+            </div>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: '✓ Sí, eliminar',
+        cancelButtonText: '✗ Cancelar',
+        reverseButtons: true,
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Eliminar el producto
+            const indice = carritoProductos.findIndex(producto => producto.id === idProducto);
+            const productoEliminado = carritoProductos[indice];
+            carritoProductos.splice(indice, 1);
+            
+            // Guardar cambios
+            guardarCarritoEnStorage();
+            actualizarVistaCarrito();
+            
+            // Notificación de éxito
+            Swal.fire({
+                title: '¡Eliminado!',
+                text: `${productoEliminado.nombre} se eliminó del carrito`,
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
+            });
+        }
+    });
 }
 
 // Modificar cantidad de un producto
@@ -152,41 +187,47 @@ function modificarCantidad(idProducto, nuevaCantidad) {
     actualizarVistaCarrito();
 }
 
-// Vaciar todo el carrito
+// Vaciar todo el carrito CON SWEET ALERT
 function vaciarCarrito() {
     if (carritoProductos.length === 0) {
-        mostrarNotificacion('El carrito ya está vacío', 'info');
+        Swal.fire({
+            title: 'Carrito vacío',
+            text: 'No hay productos para eliminar',
+            icon: 'info',
+            confirmButtonText: 'Entendido'
+        });
         return;
     }
     
-    // Crear modal de confirmación
-    const modal = document.createElement('div');
-    modal.className = 'modal-overlay';
-    modal.innerHTML = `
-        <div class="modal-content animate__animated animate__zoomIn">
-            <h4>¿Vaciar carrito?</h4>
-            <p>Se eliminarán todos los productos del carrito.</p>
-            <div class="modal-buttons">
-                <button class="btn btn-danger" id="confirmar-vaciar">Sí, vaciar</button>
-                <button class="btn btn-secondary" id="cancelar-vaciar">Cancelar</button>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    
-    document.getElementById('confirmar-vaciar').addEventListener('click', () => {
-        carritoProductos = [];
-        guardarCarritoEnStorage();
-        actualizarVistaCarrito();
-        mostrarNotificacion('Carrito vaciado', 'success');
-        modal.remove();
-    });
-    
-    document.getElementById('cancelar-vaciar').addEventListener('click', () => {
-        modal.remove();
+    Swal.fire({
+        title: '¿Vaciar todo el carrito?',
+        html: `
+            <p>Se eliminarán <strong>${calcularTotalProductos()} producto(s)</strong></p>
+            <p class="text-danger">Esta acción no se puede deshacer</p>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: '✓ Sí, vaciar carrito',
+        cancelButtonText: '✗ Cancelar',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            carritoProductos = [];
+            guardarCarritoEnStorage();
+            actualizarVistaCarrito();
+            
+            Swal.fire({
+                title: '¡Carrito vaciado!',
+                text: 'Todos los productos fueron eliminados',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
     });
 }
-
 // ============================================
 // FUNCIONES DE CÁLCULO
 // ============================================
