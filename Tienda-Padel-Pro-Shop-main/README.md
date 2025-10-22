@@ -34,6 +34,7 @@ Si queres probar los descuentos, usa alguno de estos códigos:
 - Animate.css para algunas animaciones
 - LocalStorage para guardar el carrito
 - Fetch API para cargar los productos desde un JSON
+- Sweet Alert 2 para eliminar productos del carrito u vaciarlo por completo
 
 ## Estructura del proyecto
 ```
