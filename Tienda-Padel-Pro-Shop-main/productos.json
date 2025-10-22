@@ -1,0 +1,137 @@
+[
+    {
+        "id": 1,
+        "nombre": "Pala Bullpadel Vertex 03",
+        "precio": 129999.99,
+        "stock": 5,
+        "descripcion": "Pala de alto rendimiento para jugadores avanzados",
+        "imagen": "/images/productos/vertex-03.jpg",
+        "categoria": "palas"
+    },
+    {
+        "id": 2,
+        "nombre": "Zapatillas Asics Gel-Padel",
+        "precio": 89999.99,
+        "stock": 8,
+        "descripcion": "Zapatillas específicas para pádel con tecnología Gel",
+        "imagen": "/images/productos/asics-gel-exclusive.webp",
+        "categoria": "calzado"
+    },
+    {
+        "id": 3,
+        "nombre": "Pelotas Head Padel Pro",
+        "precio": 12999.99,
+        "stock": 20,
+        "descripcion": "Pack de 3 pelotas oficiales para competición",
+        "imagen": "/images/productos/pelotas-head.webp",
+        "categoria": "accesorios"
+    },
+    {
+        "id": 4,
+        "nombre": "Custom Grip Nox",
+        "precio": 14999.99,
+        "stock": 15,
+        "descripcion": "Grip personalizado para mejor agarre",
+        "imagen": "/images/productos/custom-grip-nox.jpeg",
+        "categoria": "accesorios"
+    },
+    {
+        "id": 5,
+        "nombre": "Mochila Head Pro",
+        "precio": 24999.99,
+        "stock": 10,
+        "descripcion": "Mochila profesional para equipamiento",
+        "imagen": "/images/productos/mochila-head-pro.jpeg",
+        "categoria": "accesorios"
+    },
+    {
+        "id": 6,
+        "nombre": "Pala Adidas Drive",
+        "precio": 89999.99,
+        "stock": 8,
+        "descripcion": "Pala de control perfecta para jugadores intermedios",
+        "imagen": "/images/productos/adidas-drive.webp",
+        "categoria": "palas"
+    },
+    {
+        "id": 7,
+        "nombre": "Head Speed Pro",
+        "precio": 149999.99,
+        "stock": 6,
+        "descripcion": "Pala de potencia diseñada para jugadores agresivos",
+        "imagen": "/images/productos/head-speed-pro.png",
+        "categoria": "palas"
+    },
+    {
+        "id": 8,
+        "nombre": "Wilson Carbon Force",
+        "precio": 199999.99,
+        "stock": 4,
+        "descripcion": "Pala de fibra de carbono para rendimiento profesional",
+        "imagen": "/images/productos/carbon-force.webp",
+        "categoria": "palas"
+    },
+    {
+        "id": 9,
+        "nombre": "Adidas Barricade Club",
+        "precio": 79999.99,
+        "stock": 10,
+        "descripcion": "Zapatillas de alto rendimiento para superficies de pádel",
+        "imagen": "/images/productos/adidas-barricade.webp",
+        "categoria": "calzado"
+    },
+    {
+        "id": 10,
+        "nombre": "Babolat Jet Padel",
+        "precio": 94999.99,
+        "stock": 7,
+        "descripcion": "Zapatillas ligeras ideales para movimientos rápidos",
+        "imagen": "/images/productos/babolat-jet.webp",
+        "categoria": "calzado"
+    },
+    {
+        "id": 11,
+        "nombre": "Grip Wilson Pro",
+        "precio": 8999.99,
+        "stock": 25,
+        "descripcion": "Grip de reemplazo antideslizante",
+        "imagen": "/images/productos/grip-wilson.png",
+        "categoria": "accesorios"
+    },
+    {
+        "id": 12,
+        "nombre": "Bolso Paletero Bullpadel",
+        "precio": 45999.99,
+        "stock": 8,
+        "descripcion": "Paletero grande con compartimentos",
+        "imagen": "/images/productos/bolso-bullpadel.webp",
+        "categoria": "accesorios"
+    },
+    {
+        "id": 13,
+        "nombre": "Protector de Pala Universal",
+        "precio": 1599.99,
+        "stock": 30,
+        "descripcion": "Protector transparente para tu pala",
+        "imagen": "/images/productos/protector-pala.webp",
+        "categoria": "accesorios"
+    },
+    {
+        "id": 14,
+        "nombre": "Muñequeras Deportivas Adidas",
+        "precio": 9999.99,
+        "stock": 15,
+        "descripcion": "Par de muñequeras absorbentes",
+        "imagen": "/images/productos/muñequeras-adidas.webp",
+        "categoria": "accesorios"
+    },
+    {
+        "id": 15,
+        "nombre": "Chomba Adidas Tenis-Padel",
+        "precio": 24000.99,
+        "stock": 12,
+        "descripcion": "Chomba transpirable con tecnología de secado rápido",
+        "imagen": "/images/productos/chomba-adidas.webp",
+        "categoria": "accesorios"
+    }
+]

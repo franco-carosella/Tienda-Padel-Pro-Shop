@@ -1,40 +1,67 @@
-
 // INDEX.JS - PADELPROSHOP
 
-// Array de productos
-const productosDisponibles = [
-    {
-        id: 1,
-        nombre: "Pala Bullpadel Vertex 03",
-        precio: 129999.99,
-        stock: 5,
-        descripcion: "Pala de alto rendimiento para jugadores avanzados",
-        imagen: "/images/productos/vertex-03.jpg",
-        categoria: "palas"
-    },
-    {
-        id: 2,
-        nombre: "Zapatillas Asics Gel-Padel",
-        precio: 89999.99,
-        stock: 8,
-        descripcion: "Zapatillas específicas para pádel con tecnología Gel",
-        imagen: "/images/productos/asics-gel.webp",
-        categoria: "calzado"
-    },
-    {
-        id: 3,
-        nombre: "Pelotas Head Padel Pro",
-        precio: 12999.99,
-        stock: 20,
-        descripcion: "Pack de 3 pelotas oficiales para competición",
-        imagen: "/images/productos/pelotas-head.webp",
-        categoria: "accesorios"
+// Array de productos (se cargará desde JSON)
+let productosDisponibles = [];
+
+// ============================================
+// CARGA DE DATOS CON FETCH
+// ============================================
+
+// Cargar productos desde JSON
+async function cargarProductosDesdeJSON() {
+    try {
+        // Mostrar indicador de carga
+        console.log('Cargando productos...');
+        
+        const response = await fetch('./productos.json');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        productosDisponibles = await response.json();
+        console.log('Productos cargados exitosamente:', productosDisponibles.length);
+        
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+        mostrarNotificacion('Error al cargar los productos. Por favor, recarga la página.', 'error');
+        
+        // Productos de respaldo en caso de error
+        productosDisponibles = [
+            {
+                id: 1,
+                nombre: "Pala Bullpadel Vertex 03",
+                precio: 129999.99,
+                stock: 5,
+                descripcion: "Pala de alto rendimiento para jugadores avanzados",
+                imagen: "images/productos/vertex-03.jpg",
+                categoria: "palas"
+            },
+            {
+                id: 2,
+                nombre: "Zapatillas Asics Gel-Padel",
+                precio: 89999.99,
+                stock: 8,
+                descripcion: "Zapatillas específicas para pádel con tecnología Gel",
+                imagen: "images/productos/asics-gel.webp",
+                categoria: "calzado"
+            },
+            {
+                id: 3,
+                nombre: "Pelotas Head Padel Pro",
+                precio: 12999.99,
+                stock: 20,
+                descripcion: "Pack de 3 pelotas oficiales para competición",
+                imagen: "images/productos/pelotas-head.webp",
+                categoria: "accesorios"
+            }
+        ];
     }
-];
+}
 
 // ============================================
 // FUNCIONES DE CARRITO
-
+// ============================================
 
 // Obtener carrito desde localStorage
 function obtenerCarrito() {
@@ -141,7 +168,7 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
 
 // ============================================
 // ASIGNACIÓN DE EVENTOS
-
+// ============================================
 
 // Asignar eventos a los botones de agregar al carrito
 function asignarEventosBotones() {
@@ -172,10 +199,13 @@ function asignarEventosBotones() {
 
 // ============================================
 // INICIALIZACIÓN
-
+// ============================================
 
 // Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // IMPORTANTE: Cargar productos primero con fetch
+    await cargarProductosDesdeJSON();
+    
     // Asignar eventos a botones
     asignarEventosBotones();
     

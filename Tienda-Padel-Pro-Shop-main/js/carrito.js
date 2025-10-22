@@ -1,149 +1,37 @@
+
 // ============================================
 // SISTEMA DE CARRITO - PADELPROSHOP
-// Segunda Entrega - JS Flex
 // ============================================
 
-// Array completo de productos disponibles en la tienda
-const productosDisponibles = [
-    // PALAS
-    {
-        id: 1,
-        nombre: "Pala Bullpadel Vertex 03",
-        precio: 129999.99,
-        stock: 5,
-        descripcion: "Pala de alto rendimiento para jugadores avanzados",
-        imagen: "../images/productos/vertex-03.jpg",
-        categoria: "palas"
-    },
-    {
-        id: 6,
-        nombre: "Pala Adidas Drive",
-        precio: 89999.99,
-        stock: 8,
-        descripcion: "Pala de control perfecta para jugadores intermedios",
-        imagen: "../images/productos/adidas-drive.webp",
-        categoria: "palas"
-    },
-    {
-        id: 7,
-        nombre: "Head Speed Pro",
-        precio: 149999.99,
-        stock: 6,
-        descripcion: "Pala de potencia diseñada para jugadores agresivos",
-        imagen: "../images/productos/head-speed-pro.png",
-        categoria: "palas"
-    },
-    {
-        id: 8,
-        nombre: "Wilson Carbon Force",
-        precio: 199999.99,
-        stock: 4,
-        descripcion: "Pala de fibra de carbono para rendimiento profesional",
-        imagen: "../images/productos/carbon-force.webp",
-        categoria: "palas"
-    },
-    // CALZADO
-    {
-        id: 2,
-        nombre: "Zapatillas Asics Gel-Padel",
-        precio: 89999.99,
-        stock: 8,
-        descripcion: "Zapatillas específicas para pádel con tecnología Gel",
-        imagen: "../images/productos/asics-gel-exclusive.webp",
-        categoria: "calzado"
-    },
-    {
-        id: 9,
-        nombre: "Adidas Barricade Club",
-        precio: 79999.99,
-        stock: 10,
-        descripcion: "Zapatillas de alto rendimiento para superficies de pádel",
-        imagen: "../images/productos/adidas-barricade.webp",
-        categoria: "calzado"
-    },
-    {
-        id: 10,
-        nombre: "Babolat Jet Padel",
-        precio: 94999.99,
-        stock: 7,
-        descripcion: "Zapatillas ligeras ideales para movimientos rápidos",
-        imagen: "../images/productos/babolat-jet.webp",
-        categoria: "calzado"
-    },
-    // ACCESORIOS
-    {
-        id: 3,
-        nombre: "Pelotas Head Padel Pro",
-        precio: 12999.99,
-        stock: 20,
-        descripcion: "Pack de 3 pelotas oficiales para competición",
-        imagen: "../images/productos/pelotas-head.webp",
-        categoria: "accesorios"
-    },
-    {
-        id: 11,
-        nombre: "Grip Wilson Pro",
-        precio: 8999.99,
-        stock: 25,
-        descripcion: "Grip de reemplazo antideslizante",
-        imagen: "../images/productos/grip-wilson.png",
-        categoria: "accesorios"
-    },
-    {
-        id: 12,
-        nombre: "Bolso Paletero Bullpadel",
-        precio: 45999.99,
-        stock: 8,
-        descripcion: "Paletero grande con compartimentos",
-        imagen: "../images/productos/bolso-bullpadel.webp",
-        categoria: "accesorios"
-    },
-    {
-        id: 13,
-        nombre: "Protector de Pala Universal",
-        precio: 1599.99,
-        stock: 30,
-        descripcion: "Protector transparente para tu pala",
-        imagen: "../images/productos/protector-pala.webp",
-        categoria: "accesorios"
-    },
-    {
-        id: 14,
-        nombre: "Muñequeras Deportivas Adidas",
-        precio: 9999.99,
-        stock: 15,
-        descripcion: "Par de muñequeras absorbentes",
-        imagen: "../images/productos/muñequeras-adidas.webp",
-        categoria: "accesorios"
-    },
-    {
-        id: 15,
-        nombre: "Chomba Adidas Tenis-Padel",
-        precio: 24000.99,
-        stock: 12,
-        descripcion: "Chomba transpirable con tecnología de secado rápido",
-        imagen: "../images/productos/chomba-adidas.webp",
-        categoria: "accesorios"
-    },
-    {
-        id: 4,
-        nombre: "Custom Grip Nox",
-        precio: 14999.99,
-        stock: 15,
-        descripcion: "Grip personalizado para mejor agarre",
-        imagen: "../images/productos/custom-grip-nox.jpeg",
-        categoria: "accesorios"
-    },
-    {
-        id: 5,
-        nombre: "Mochila Head Pro",
-        precio: 24999.99,
-        stock: 10,
-        descripcion: "Mochila profesional para equipamiento",
-        imagen: "../images/productos/mochila-head-pro.jpeg",
-        categoria: "accesorios"
+// Array de productos (se cargará desde JSON)
+let productosDisponibles = [];
+
+// ============================================
+// CARGA DE DATOS CON FETCH
+// ============================================
+
+// Cargar productos desde JSON
+async function cargarProductosDesdeJSON() {
+    try {
+        console.log('Cargando productos en carrito...');
+        
+        const response = await fetch('../productos.json');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        productosDisponibles = await response.json();
+        console.log('Productos cargados en carrito:', productosDisponibles.length);
+        
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+        mostrarNotificacion('Error al cargar datos. Algunas funciones pueden no estar disponibles.', 'warning');
+        
+        // Array mínimo de respaldo
+        productosDisponibles = [];
     }
-];
+}
 
 // Variable global para almacenar el carrito
 let carritoProductos = [];
@@ -227,17 +115,52 @@ function agregarAlCarrito(idProducto, cantidad = 1) {
     mostrarNotificacion('Producto agregado al carrito', 'success');
 }
 
-// Eliminar producto del carrito
+// Eliminar producto del carrito CON CONFIRMACIÓN
 function eliminarDelCarrito(idProducto) {
-    const indice = carritoProductos.findIndex(producto => producto.id === idProducto);
+    const productoEnCarrito = buscarProductoEnCarrito(idProducto);
     
-    if (indice !== -1) {
-        const productoEliminado = carritoProductos[indice];
-        carritoProductos.splice(indice, 1);
-        guardarCarritoEnStorage();
-        actualizarVistaCarrito();
-        mostrarNotificacion(`${productoEliminado.nombre} eliminado del carrito`, 'info');
-    }
+    if (!productoEnCarrito) return;
+    
+    // Sweet Alert de confirmación
+    Swal.fire({
+        title: '¿Eliminar producto?',
+        html: `
+            <div style="text-align: left;">
+                <p><strong>${productoEnCarrito.nombre}</strong></p>
+                <p class="text-muted" style="font-size: 0.9rem;">Cantidad: ${productoEnCarrito.cantidad} | Subtotal: $${productoEnCarrito.subtotal.toLocaleString('es-AR', {minimumFractionDigits: 2})}</p>
+            </div>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: '✓ Sí, eliminar',
+        cancelButtonText: '✗ Cancelar',
+        reverseButtons: true,
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Eliminar el producto
+            const indice = carritoProductos.findIndex(producto => producto.id === idProducto);
+            const productoEliminado = carritoProductos[indice];
+            carritoProductos.splice(indice, 1);
+            
+            // Guardar cambios
+            guardarCarritoEnStorage();
+            actualizarVistaCarrito();
+            
+            // Notificación de éxito
+            Swal.fire({
+                title: '¡Eliminado!',
+                text: `${productoEliminado.nombre} se eliminó del carrito`,
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
+            });
+        }
+    });
 }
 
 // Modificar cantidad de un producto
@@ -264,41 +187,47 @@ function modificarCantidad(idProducto, nuevaCantidad) {
     actualizarVistaCarrito();
 }
 
-// Vaciar todo el carrito
+// Vaciar todo el carrito CON SWEET ALERT
 function vaciarCarrito() {
     if (carritoProductos.length === 0) {
-        mostrarNotificacion('El carrito ya está vacío', 'info');
+        Swal.fire({
+            title: 'Carrito vacío',
+            text: 'No hay productos para eliminar',
+            icon: 'info',
+            confirmButtonText: 'Entendido'
+        });
         return;
     }
     
-    // Crear modal de confirmación
-    const modal = document.createElement('div');
-    modal.className = 'modal-overlay';
-    modal.innerHTML = `
-        <div class="modal-content animate__animated animate__zoomIn">
-            <h4>¿Vaciar carrito?</h4>
-            <p>Se eliminarán todos los productos del carrito.</p>
-            <div class="modal-buttons">
-                <button class="btn btn-danger" id="confirmar-vaciar">Sí, vaciar</button>
-                <button class="btn btn-secondary" id="cancelar-vaciar">Cancelar</button>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(modal);
-    
-    document.getElementById('confirmar-vaciar').addEventListener('click', () => {
-        carritoProductos = [];
-        guardarCarritoEnStorage();
-        actualizarVistaCarrito();
-        mostrarNotificacion('Carrito vaciado', 'success');
-        modal.remove();
-    });
-    
-    document.getElementById('cancelar-vaciar').addEventListener('click', () => {
-        modal.remove();
+    Swal.fire({
+        title: '¿Vaciar todo el carrito?',
+        html: `
+            <p>Se eliminarán <strong>${calcularTotalProductos()} producto(s)</strong></p>
+            <p class="text-danger">Esta acción no se puede deshacer</p>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: '✓ Sí, vaciar carrito',
+        cancelButtonText: '✗ Cancelar',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            carritoProductos = [];
+            guardarCarritoEnStorage();
+            actualizarVistaCarrito();
+            
+            Swal.fire({
+                title: '¡Carrito vaciado!',
+                text: 'Todos los productos fueron eliminados',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
     });
 }
-
 // ============================================
 // FUNCIONES DE CÁLCULO
 // ============================================
@@ -613,7 +542,7 @@ function asignarEventosGlobales() {
 }
 
 // ============================================
-// FINALIZAR COMPRA
+// FINALIZAR COMPRA CON FORMULARIO Y VALIDACIÓN
 // ============================================
 
 function finalizarCompra() {
@@ -625,70 +554,377 @@ function finalizarCompra() {
     const total = calcularSubtotal();
     const descuentoGuardado = localStorage.getItem('descuentoAplicado');
     let descuentoMonto = 0;
+    let codigoDescuento = '';
     
     if (descuentoGuardado) {
         const descuento = JSON.parse(descuentoGuardado);
         descuentoMonto = descuento.monto;
+        codigoDescuento = descuento.codigo;
     }
     
     const totalFinal = total - descuentoMonto;
     
-    // Crear modal de confirmación
+    // Crear modal con formulario completo
     const modal = document.createElement('div');
     modal.className = 'modal-overlay';
     modal.innerHTML = `
-        <div class="modal-content animate__animated animate__zoomIn" style="max-width: 500px;">
-            <h4>💳 Finalizar Compra</h4>
-            <div class="resumen-compra mb-3">
-                <p><strong>Total de productos:</strong> ${calcularTotalProductos()}</p>
-                <p><strong>Subtotal:</strong> $${total.toLocaleString('es-AR', {minimumFractionDigits: 2})}</p>
-                ${descuentoMonto > 0 ? `<p class="text-success"><strong>Descuento:</strong> -$${descuentoMonto.toLocaleString('es-AR', {minimumFractionDigits: 2})}</p>` : ''}
-                <hr>
-                <p class="h5"><strong>Total a pagar:</strong> $${totalFinal.toLocaleString('es-AR', {minimumFractionDigits: 2})}</p>
+        <div class="modal-content animate__animated animate__zoomIn" style="max-width: 650px; max-height: 90vh; overflow-y: auto;">
+            <h4 class="text-center mb-4">💳 Finalizar Compra</h4>
+            
+            <!-- RESUMEN DEL PEDIDO -->
+            <div class="alert alert-info mb-4">
+                <p class="mb-1"><strong>Total de productos:</strong> ${calcularTotalProductos()}</p>
+                <p class="mb-1"><strong>Subtotal:</strong> $${total.toLocaleString('es-AR', {minimumFractionDigits: 2})}</p>
+                ${descuentoMonto > 0 ? `<p class="mb-1 text-success"><strong>Descuento (${codigoDescuento}):</strong> -$${descuentoMonto.toLocaleString('es-AR', {minimumFractionDigits: 2})}</p>` : ''}
+                <hr class="my-2">
+                <p class="h5 mb-0"><strong>Total a pagar:</strong> $${totalFinal.toLocaleString('es-AR', {minimumFractionDigits: 2})}</p>
             </div>
-            <div class="metodos-pago mb-3">
-                <label class="d-block mb-2"><strong>Método de pago:</strong></label>
-                <select class="form-control" id="metodo-pago">
-                    <option value="">Seleccione un método</option>
-                    <option value="tarjeta-credito">💳 Tarjeta de Crédito</option>
-                    <option value="tarjeta-debito">💳 Tarjeta de Débito</option>
-                    <option value="transferencia">🏦 Transferencia Bancaria</option>
-                    <option value="mercadopago">💰 MercadoPago</option>
-                </select>
-            </div>
-            <div class="modal-buttons">
-                <button class="btn btn-success" id="confirmar-compra">✅ Confirmar Compra</button>
-                <button class="btn btn-secondary" id="cancelar-compra">Cancelar</button>
-            </div>
+            
+            <!-- FORMULARIO DE CHECKOUT -->
+            <form id="form-checkout" novalidate>
+                <h5 class="mb-3">📋 Datos Personales</h5>
+                
+                <!-- Nombre Completo -->
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre Completo *</label>
+                    <input type="text" class="form-control" id="nombre" required 
+                           placeholder="Ej: Juan Pérez">
+                    <div class="invalid-feedback">Por favor ingrese su nombre completo.</div>
+                </div>
+                
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email *</label>
+                    <input type="email" class="form-control" id="email" required 
+                           placeholder="ejemplo@email.com">
+                    <div class="invalid-feedback">Por favor ingrese un email válido.</div>
+                </div>
+                
+                <!-- Teléfono -->
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono *</label>
+                    <input type="tel" class="form-control" id="telefono" required 
+                           placeholder="Ej: 351-1234567">
+                    <div class="invalid-feedback">Por favor ingrese su teléfono.</div>
+                </div>
+                
+                <!-- Dirección -->
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección de Envío *</label>
+                    <textarea class="form-control" id="direccion" rows="2" required 
+                              placeholder="Calle, número, piso, depto"></textarea>
+                    <div class="invalid-feedback">Por favor ingrese su dirección de envío.</div>
+                </div>
+                
+                <!-- Ciudad y Código Postal -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="ciudad" class="form-label">Ciudad *</label>
+                        <input type="text" class="form-control" id="ciudad" required 
+                               placeholder="Ej: Villa Carlos Paz">
+                        <div class="invalid-feedback">Ingrese su ciudad.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="codigo-postal" class="form-label">Código Postal *</label>
+                        <input type="text" class="form-control" id="codigo-postal" required 
+                               placeholder="Ej: 5152">
+                        <div class="invalid-feedback">Ingrese su código postal.</div>
+                    </div>
+                </div>
+                
+                <hr class="my-4">
+                
+                <h5 class="mb-3">💰 Método de Pago</h5>
+                
+                <!-- Método de Pago -->
+                <div class="mb-3">
+                    <label for="metodo-pago" class="form-label">Seleccione un método *</label>
+                    <select class="form-control" id="metodo-pago" required>
+                        <option value="">-- Seleccione --</option>
+                        <option value="tarjeta-credito">💳 Tarjeta de Crédito</option>
+                        <option value="tarjeta-debito">💳 Tarjeta de Débito</option>
+                        <option value="transferencia">🏦 Transferencia Bancaria</option>
+                        <option value="mercadopago">💰 MercadoPago</option>
+                    </select>
+                    <div class="invalid-feedback">Seleccione un método de pago.</div>
+                </div>
+                
+                <!-- CAMPOS CONDICIONALES PARA TARJETA -->
+                <div id="campos-tarjeta" style="display: none;">
+                    <div class="alert alert-warning" style="font-size: 0.9rem;">
+                        🔒 Tus datos están protegidos con encriptación SSL
+                    </div>
+                    
+                    <!-- Número de Tarjeta -->
+                    <div class="mb-3">
+                        <label for="numero-tarjeta" class="form-label">Número de Tarjeta *</label>
+                        <input type="text" class="form-control" id="numero-tarjeta" 
+                               placeholder="1234 5678 9012 3456" maxlength="19">
+                        <div class="invalid-feedback">Ingrese un número de tarjeta válido (16 dígitos).</div>
+                    </div>
+                    
+                    <!-- Titular de la Tarjeta -->
+                    <div class="mb-3">
+                        <label for="titular-tarjeta" class="form-label">Titular de la Tarjeta *</label>
+                        <input type="text" class="form-control" id="titular-tarjeta" 
+                               placeholder="Nombre como aparece en la tarjeta"
+                               style="text-transform: uppercase;">
+                        <div class="invalid-feedback">Ingrese el nombre del titular.</div>
+                    </div>
+                    
+                    <!-- Vencimiento y CVV -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="vencimiento" class="form-label">Vencimiento (MM/AA) *</label>
+                            <input type="text" class="form-control" id="vencimiento" 
+                                   placeholder="12/25" maxlength="5">
+                            <div class="invalid-feedback">Formato: MM/AA</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cvv" class="form-label">CVV *</label>
+                            <input type="text" class="form-control" id="cvv" 
+                                   placeholder="123" maxlength="3">
+                            <div class="invalid-feedback">3 dígitos del reverso.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="my-4">
+                
+                <!-- Botones -->
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        ✅ Confirmar y Pagar
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancelar-compra">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
         </div>
     `;
+    
     document.body.appendChild(modal);
     
-    document.getElementById('confirmar-compra').addEventListener('click', () => {
+    // ============================================
+    // EVENTOS Y VALIDACIONES
+    // ============================================
+    
+    // Mostrar/ocultar campos de tarjeta según método de pago
+    const selectMetodoPago = document.getElementById('metodo-pago');
+    const camposTarjeta = document.getElementById('campos-tarjeta');
+    
+    selectMetodoPago.addEventListener('change', (e) => {
+        const inputsTarjeta = camposTarjeta.querySelectorAll('input');
+        
+        if (e.target.value.includes('tarjeta')) {
+            camposTarjeta.style.display = 'block';
+            inputsTarjeta.forEach(input => input.required = true);
+        } else {
+            camposTarjeta.style.display = 'none';
+            inputsTarjeta.forEach(input => {
+                input.required = false;
+                input.classList.remove('is-invalid');
+            });
+        }
+    });
+    
+    // Formatear número de tarjeta (agregar espacios cada 4 dígitos)
+    const inputNumeroTarjeta = document.getElementById('numero-tarjeta');
+    if (inputNumeroTarjeta) {
+        inputNumeroTarjeta.addEventListener('input', (e) => {
+            let valor = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
+            let valorFormateado = valor.match(/.{1,4}/g)?.join(' ') || valor;
+            e.target.value = valorFormateado;
+        });
+    }
+    
+    // Formatear vencimiento (formato MM/AA)
+    const inputVencimiento = document.getElementById('vencimiento');
+    if (inputVencimiento) {
+        inputVencimiento.addEventListener('input', (e) => {
+            let valor = e.target.value.replace(/\D/g, '');
+            if (valor.length >= 2) {
+                valor = valor.slice(0, 2) + '/' + valor.slice(2, 4);
+            }
+            e.target.value = valor;
+        });
+    }
+    
+    // Solo números en CVV
+    const inputCVV = document.getElementById('cvv');
+    if (inputCVV) {
+        inputCVV.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+    }
+    
+    // Solo números en teléfono
+    const inputTelefono = document.getElementById('telefono');
+    inputTelefono.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/[^\d\s\-]/g, '');
+    });
+    
+    // ============================================
+    // VALIDACIÓN Y ENVÍO DEL FORMULARIO
+    // ============================================
+    
+    const form = document.getElementById('form-checkout');
+    
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Remover clases de validación previas
+        form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+        
+        let formularioValido = true;
+        
+        // Validar campos básicos
+        const nombre = document.getElementById('nombre').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const telefono = document.getElementById('telefono').value.trim();
+        const direccion = document.getElementById('direccion').value.trim();
+        const ciudad = document.getElementById('ciudad').value.trim();
+        const codigoPostal = document.getElementById('codigo-postal').value.trim();
         const metodoPago = document.getElementById('metodo-pago').value;
         
+        // Validar nombre (mínimo 3 caracteres)
+        if (nombre.length < 3) {
+            document.getElementById('nombre').classList.add('is-invalid');
+            formularioValido = false;
+        }
+        
+        // Validar email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            document.getElementById('email').classList.add('is-invalid');
+            formularioValido = false;
+        }
+        
+        // Validar teléfono (mínimo 7 dígitos)
+        const telefonoSoloNumeros = telefono.replace(/\D/g, '');
+        if (telefonoSoloNumeros.length < 7) {
+            document.getElementById('telefono').classList.add('is-invalid');
+            formularioValido = false;
+        }
+        
+        // Validar dirección
+        if (direccion.length < 5) {
+            document.getElementById('direccion').classList.add('is-invalid');
+            formularioValido = false;
+        }
+        
+        // Validar ciudad
+        if (ciudad.length < 3) {
+            document.getElementById('ciudad').classList.add('is-invalid');
+            formularioValido = false;
+        }
+        
+        // Validar código postal
+        if (codigoPostal.length < 4) {
+            document.getElementById('codigo-postal').classList.add('is-invalid');
+            formularioValido = false;
+        }
+        
+        // Validar método de pago
         if (!metodoPago) {
-            mostrarNotificacion('Seleccione un método de pago', 'warning');
+            document.getElementById('metodo-pago').classList.add('is-invalid');
+            formularioValido = false;
+        }
+        
+        // Si eligió tarjeta, validar campos de tarjeta
+        if (metodoPago.includes('tarjeta')) {
+            const numeroTarjeta = document.getElementById('numero-tarjeta').value.replace(/\s/g, '');
+            const titularTarjeta = document.getElementById('titular-tarjeta').value.trim();
+            const vencimiento = document.getElementById('vencimiento').value;
+            const cvv = document.getElementById('cvv').value;
+            
+            // Validar número de tarjeta (16 dígitos)
+            if (numeroTarjeta.length !== 16 || !/^\d+$/.test(numeroTarjeta)) {
+                document.getElementById('numero-tarjeta').classList.add('is-invalid');
+                formularioValido = false;
+            }
+            
+            // Validar titular
+            if (titularTarjeta.length < 3) {
+                document.getElementById('titular-tarjeta').classList.add('is-invalid');
+                formularioValido = false;
+            }
+            
+            // Validar vencimiento (formato MM/AA y fecha válida)
+            const vencimientoRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            if (!vencimientoRegex.test(vencimiento)) {
+                document.getElementById('vencimiento').classList.add('is-invalid');
+                formularioValido = false;
+            } else {
+                // Validar que no esté vencida
+                const [mes, año] = vencimiento.split('/');
+                const fechaVencimiento = new Date(2000 + parseInt(año), parseInt(mes) - 1);
+                const fechaActual = new Date();
+                if (fechaVencimiento < fechaActual) {
+                    document.getElementById('vencimiento').classList.add('is-invalid');
+                    mostrarNotificacion('La tarjeta está vencida', 'error');
+                    formularioValido = false;
+                }
+            }
+            
+            // Validar CVV (3 dígitos)
+            if (cvv.length !== 3 || !/^\d+$/.test(cvv)) {
+                document.getElementById('cvv').classList.add('is-invalid');
+                formularioValido = false;
+            }
+        }
+        
+        // Si hay errores, mostrar notificación y detener
+        if (!formularioValido) {
+            mostrarNotificacion('Por favor complete todos los campos correctamente', 'error');
             return;
         }
         
-        // Simular compra exitosa
+        // ============================================
+        // COMPRA EXITOSA
+        // ============================================
+        
+        // Guardar datos de la compra (opcional, para futuras referencias)
+        const datosCompra = {
+            fecha: new Date().toISOString(),
+            cliente: { nombre, email, telefono, direccion, ciudad, codigoPostal },
+            metodoPago,
+            productos: carritoProductos,
+            subtotal: total,
+            descuento: descuentoMonto,
+            total: totalFinal
+        };
+        
+        console.log('Compra realizada:', datosCompra);
+        
+        // Limpiar carrito y descuentos
         carritoProductos = [];
         localStorage.removeItem('carritoProductos');
         localStorage.removeItem('descuentoAplicado');
         
+        // Cerrar modal de checkout
         modal.remove();
         
-        // Mostrar mensaje de éxito
+        // Mostrar modal de éxito
         const modalExito = document.createElement('div');
         modalExito.className = 'modal-overlay';
         modalExito.innerHTML = `
-            <div class="modal-content animate__animated animate__bounceIn" style="max-width: 400px; text-align: center;">
-                <h2 style="color: #28a745;">✅ ¡Compra Exitosa!</h2>
-                <p class="mt-3">Tu pedido ha sido procesado correctamente.</p>
-                <p><strong>Total pagado:</strong> $${totalFinal.toLocaleString('es-AR', {minimumFractionDigits: 2})}</p>
-                <p class="text-muted">Recibirás un email de confirmación en breve.</p>
-                <button class="btn btn-primary mt-3" id="btn-volver-inicio">Volver al Inicio</button>
+            <div class="modal-content animate__animated animate__bounceIn" style="max-width: 450px; text-align: center;">
+                <div style="font-size: 80px; margin-bottom: 20px;">✅</div>
+                <h2 style="color: #28a745; margin-bottom: 20px;">¡Compra Exitosa!</h2>
+                <p class="lead">Tu pedido ha sido procesado correctamente</p>
+                <div class="alert alert-success my-4">
+                    <p class="mb-2"><strong>Número de orden:</strong> #${Math.floor(Math.random() * 999999)}</p>
+                    <p class="mb-0"><strong>Total pagado:</strong> $${totalFinal.toLocaleString('es-AR', {minimumFractionDigits: 2})}</p>
+                </div>
+                <p class="text-muted mb-4">
+                    📧 Recibirás un email de confirmación en <strong>${email}</strong>
+                    <br>📦 Tu pedido llegará en 48-72 horas hábiles
+                </p>
+                <button class="btn btn-primary btn-lg" id="btn-volver-inicio">
+                    Volver al Inicio
+                </button>
             </div>
         `;
         document.body.appendChild(modalExito);
@@ -697,11 +933,20 @@ function finalizarCompra() {
             window.location.href = '../index.html';
         });
         
+        // Actualizar vista del carrito
         actualizarVistaCarrito();
     });
     
+    // Botón cancelar
     document.getElementById('cancelar-compra').addEventListener('click', () => {
         modal.remove();
+    });
+    
+    // Cerrar modal al hacer click fuera
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
     });
 }
 
@@ -710,7 +955,11 @@ function finalizarCompra() {
 // ============================================
 
 // Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // IMPORTANTE: Cargar productos primero
+    await cargarProductosDesdeJSON();
+    
+    // Luego inicializar el carrito
     cargarCarritoDesdeStorage();
     actualizarVistaCarrito();
     asignarEventosGlobales();

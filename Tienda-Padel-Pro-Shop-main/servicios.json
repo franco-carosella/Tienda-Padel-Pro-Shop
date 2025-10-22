@@ -1,0 +1,50 @@
+[
+    {
+        "id": 101,
+        "nombre": "Reparación de Palas",
+        "precio": 15000.00,
+        "stock": 99,
+        "descripcion": "Arreglamos tu pala favorita con garantía y materiales de calidad",
+        "categoria": "servicios"
+    },
+    {
+        "id": 102,
+        "nombre": "Cambio de Grip",
+        "precio": 8000.00,
+        "stock": 99,
+        "descripcion": "Renovamos el grip de tu pala para mayor comodidad y control",
+        "categoria": "servicios"
+    },
+    {
+        "id": 103,
+        "nombre": "Personalización Láser",
+        "precio": 12000.00,
+        "stock": 99,
+        "descripcion": "Grabado láser de tu nombre o logo en palas y accesorios",
+        "categoria": "servicios"
+    },
+    {
+        "id": 104,
+        "nombre": "Asesoramiento Experto",
+        "precio": 0.00,
+        "stock": 99,
+        "descripcion": "Consulta gratuita con nuestros especialistas certificados",
+        "categoria": "servicios"
+    },
+    {
+        "id": 105,
+        "nombre": "Envío Express",
+        "precio": 6000.00,
+        "stock": 99,
+        "descripcion": "Recibe tus productos en 24-48h en toda Argentina",
+        "categoria": "servicios"
+    },
+    {
+        "id": 106,
+        "nombre": "Cambios y Devoluciones",
+        "precio": 0.00,
+        "stock": 99,
+        "descripcion": "15 días para cambios y devoluciones sin complicaciones",
+        "categoria": "servicios"
+    }
+]
