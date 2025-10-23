@@ -3,7 +3,6 @@
 // Array de productos (se cargará desde JSON)
 let productosDisponibles = [];
 
-// ============================================
 // CARGA DE DATOS CON FETCH
 // ============================================
 
@@ -59,7 +58,6 @@ async function cargarProductosDesdeJSON() {
     }
 }
 
-// ============================================
 // FUNCIONES DE CARRITO
 // ============================================
 
@@ -166,7 +164,6 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
     }, 3000);
 }
 
-// ============================================
 // ASIGNACIÓN DE EVENTOS
 // ============================================
 
@@ -197,7 +194,6 @@ function asignarEventosBotones() {
     });
 }
 
-// ============================================
 // INICIALIZACIÓN
 // ============================================
 

@@ -1,12 +1,10 @@
 
-// ============================================
 // SISTEMA DE CARRITO - PADELPROSHOP
 // ============================================
 
 // Array de productos (se cargará desde JSON)
 let productosDisponibles = [];
 
-// ============================================
 // CARGA DE DATOS CON FETCH
 // ============================================
 
@@ -43,7 +41,7 @@ const codigosDescuento = {
     "PADELPROSHOP": 20
 };
 
-// ============================================
+
 // FUNCIONES DE STORAGE
 // ============================================
 
@@ -60,9 +58,8 @@ function guardarCarritoEnStorage() {
     localStorage.setItem('carritoProductos', JSON.stringify(carritoProductos));
 }
 
-// ============================================
+
 // FUNCIONES DE BÚSQUEDA Y VALIDACIÓN
-// ============================================
 
 // Buscar producto por ID
 function buscarProductoPorId(idProducto) {
@@ -74,9 +71,9 @@ function buscarProductoEnCarrito(idProducto) {
     return carritoProductos.find(producto => producto.id === idProducto);
 }
 
-// ============================================
+
 // FUNCIONES DE CARRITO
-// ============================================
+
 
 // Agregar producto al carrito
 function agregarAlCarrito(idProducto, cantidad = 1) {
@@ -228,7 +225,7 @@ function vaciarCarrito() {
         }
     });
 }
-// ============================================
+
 // FUNCIONES DE CÁLCULO
 // ============================================
 
@@ -274,7 +271,6 @@ function aplicarCodigoDescuento() {
     inputCodigo.value = '';
 }
 
-// ============================================
 // FUNCIONES DE VISUALIZACIÓN DOM
 // ============================================
 
@@ -470,7 +466,6 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
     }, 3000);
 }
 
-// ============================================
 // ASIGNACIÓN DE EVENTOS
 // ============================================
 
@@ -541,7 +536,6 @@ function asignarEventosGlobales() {
     });
 }
 
-// ============================================
 // FINALIZAR COMPRA CON FORMULARIO Y VALIDACIÓN
 // ============================================
 
@@ -706,7 +700,6 @@ function finalizarCompra() {
     
     document.body.appendChild(modal);
     
-    // ============================================
     // EVENTOS Y VALIDACIONES
     // ============================================
     
@@ -765,7 +758,6 @@ function finalizarCompra() {
         e.target.value = e.target.value.replace(/[^\d\s\-]/g, '');
     });
     
-    // ============================================
     // VALIDACIÓN Y ENVÍO DEL FORMULARIO
     // ============================================
     
@@ -881,7 +873,6 @@ function finalizarCompra() {
             return;
         }
         
-        // ============================================
         // COMPRA EXITOSA
         // ============================================
         
@@ -950,7 +941,6 @@ function finalizarCompra() {
     });
 }
 
-// ============================================
 // INICIALIZACIÓN
 // ============================================
 

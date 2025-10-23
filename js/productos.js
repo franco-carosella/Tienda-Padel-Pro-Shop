@@ -3,7 +3,6 @@
 // Array de productos (se cargará desde JSON)
 let todosLosProductos = [];
 
-// ============================================
 // CARGA DE DATOS CON FETCH
 // ============================================
 
@@ -45,7 +44,6 @@ async function cargarProductosDesdeJSON() {
     }
 }
 
-// ============================================
 // FUNCIONES DE CARRITO
 // ============================================
 
@@ -152,7 +150,6 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
     }, 3000);
 }
 
-// ============================================
 // RENDERIZADO DINÁMICO DE PRODUCTOS
 // ============================================
 
@@ -207,7 +204,6 @@ function renderizarTodosLosProductos() {
     asignarEventosBotonesAgregar();
 }
 
-// ============================================
 // ASIGNACIÓN DE EVENTOS
 // ============================================
 
@@ -241,7 +237,6 @@ function asignarEventosBotonesAgregar() {
     });
 }
 
-// ============================================
 // INICIALIZACIÓN
 // ============================================
 
