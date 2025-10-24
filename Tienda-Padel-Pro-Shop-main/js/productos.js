@@ -1,5 +1,10 @@
 // PRODUCTOS.JS - PADELPROSHOP
 
+// BASE_PATH PARA GITHUB PAGE Y LOCAL
+const BASE_PATH = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    ? '' 
+    : '/Tienda-Padel-Pro-Shop';
+
 // Array de productos (se cargará desde JSON)
 let todosLosProductos = [];
 
@@ -35,7 +40,7 @@ async function cargarProductosDesdeJSON() {
                 precio: 129999.99,
                 stock: 5,
                 descripcion: "Pala de alto rendimiento para jugadores avanzados",
-                imagen: "../images/productos/vertex-03.jpg",
+                imagen: "/images/productos/vertex-03.jpg",
                 categoria: "palas"
             }
         ];
@@ -89,7 +94,7 @@ function agregarAlCarritoDesdeProductos(idProducto) {
             precio: producto.precio,
             cantidad: 1,
             subtotal: producto.precio,
-            imagen: producto.imagen,
+            imagen: BASE_PATH + producto.imagen, // ⬅️ AQUÍ AGREGAMOS BASE_PATH
             descripcion: producto.descripcion
         };
         carrito.push(nuevoProducto);
@@ -172,7 +177,7 @@ function renderizarProductosPorCategoria(categoria, contenedorId) {
         
         col.innerHTML = `
             <div class="card h-100 animate__animated animate__zoomIn" style="animation-delay: ${index * 0.1}s">
-                <img src="${producto.imagen}" class="card-img-top" alt="${producto.nombre}" 
+                <img src="${BASE_PATH + producto.imagen}" class="card-img-top" alt="${producto.nombre}" 
                      style="height: 250px; object-fit: cover">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">${producto.nombre}</h5>

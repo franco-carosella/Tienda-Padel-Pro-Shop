@@ -1,12 +1,25 @@
 // INDEX.JS - PADELPROSHOP
 
+// BASE_PAH GITHUB Y LOCAL (carga de imagenes)
+const BASE_PATH = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    ? '' 
+    : '/Tienda-Padel-Pro-Shop';
+
 // Array de productos (se cargará desde JSON)
 let productosDisponibles = [];
+
+// NUEVA FUNCIÓN: Corregir rutas de imágenes hardcodeadas
+function corregirRutasImagenes() {
+    const imagenesProductos = document.querySelectorAll('.productos-destacados img[src^="images/productos"]');
+    imagenesProductos.forEach(img => {
+        const rutaOriginal = img.getAttribute('src');
+        img.src = BASE_PATH + '/' + rutaOriginal;
+    });
+}
 
 // CARGA DE DATOS CON FETCH
 // ============================================
 
-// Cargar productos desde JSON
 async function cargarProductosDesdeJSON() {
     try {
         // Mostrar indicador de carga
@@ -33,7 +46,7 @@ async function cargarProductosDesdeJSON() {
                 precio: 129999.99,
                 stock: 5,
                 descripcion: "Pala de alto rendimiento para jugadores avanzados",
-                imagen: "images/productos/vertex-03.jpg",
+                imagen: "/images/productos/vertex-03.jpg",
                 categoria: "palas"
             },
             {
@@ -42,7 +55,7 @@ async function cargarProductosDesdeJSON() {
                 precio: 89999.99,
                 stock: 8,
                 descripcion: "Zapatillas específicas para pádel con tecnología Gel",
-                imagen: "images/productos/asics-gel.webp",
+                imagen: "/images/productos/asics-gel-exclusive.webp",
                 categoria: "calzado"
             },
             {
@@ -51,7 +64,7 @@ async function cargarProductosDesdeJSON() {
                 precio: 12999.99,
                 stock: 20,
                 descripcion: "Pack de 3 pelotas oficiales para competición",
-                imagen: "images/productos/pelotas-head.webp",
+                imagen: "/images/productos/pelotas-head.webp",
                 categoria: "accesorios"
             }
         ];
@@ -103,7 +116,7 @@ function agregarAlCarrito(idProducto) {
             precio: producto.precio,
             cantidad: 1,
             subtotal: producto.precio,
-            imagen: producto.imagen,
+            imagen: BASE_PATH + producto.imagen,
             descripcion: producto.descripcion
         };
         carrito.push(nuevoProducto);
@@ -199,7 +212,10 @@ function asignarEventosBotones() {
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', async () => {
-    // IMPORTANTE: Cargar productos primero con fetch
+    // IMPORTANTE: Corregir rutas de imágenes hardcodeadas PRIMERO
+    corregirRutasImagenes();
+    
+    // Cargar productos con fetch
     await cargarProductosDesdeJSON();
     
     // Asignar eventos a botones
